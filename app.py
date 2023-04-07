@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,request
 
 app = Flask(__name__)
 
@@ -21,9 +21,13 @@ hackathons = {
 def hello_world():
     return "<p> Thanks for the lesson!!! </p>"
 
-@app.route('/ProAPI_Hack',methods=['GET'])
-def ProAPI_Hack():
-    return hackathons
+@app.route('/hackathons',methods=['GET','POST'])
+def getHackathons():
+    if request.method == 'POST':
+        hackathons["New Hackathons"]=request.json
+        return hackathons
+    else:
+        return hackathons
 
 if __name__=="__main__":
     app.run(debug=True)
